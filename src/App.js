@@ -1,16 +1,17 @@
 import { useState } from "react";
 import "./styles.css";
 import Task from "./Components/ListItem";
+import Input from "./Components/InputArea";
 
 export default function App() {
   const [input, setInput] = useState("");
   const [ToDoList, setToDoList] = useState(["A Item"]);
 
-  function handleChange(event) {
+  function handleInput(event) {
     const item = event.target.value;
     setInput(item);
   }
-  function handleClick() {
+  function addItem() {
     setToDoList((preItems) => [input, ...preItems]);
     setInput("");
   }
@@ -23,12 +24,7 @@ export default function App() {
       <div className="heading">
         <h1>To-Do List</h1>
       </div>
-      <div className="form">
-        <input onChange={handleChange} name="item" value={input} type="text" />
-        <button onClick={handleClick}>
-          <span>Add</span>
-        </button>
-      </div>
+      <Input InputItem={input} onAdd={addItem} onInput={handleInput} />
       <div>
         <ul>
           {ToDoList.map((task, index) => (
